@@ -1,31 +1,78 @@
-import FetchWrapper from "./fetch-wrapper.js";
+import FetchWrapper from './fetch-wrapper.js';
+import currencyData from './currency-data.json';
 
 document.addEventListener("DOMContentLoaded", function() {
     const baseCurrencyContainer = document.getElementById('base-currency');
     const targetCurrencyContainer = document.getElementById('target-currency');
-    const trackRateButton = document.getElementById('track-rate-button');
+    const baseDropdownButton = document.getElementById('show-more-base');
+    const targetDropdownButton = document.getElementById('show-more-target');
+    const baseDropdown = document.getElementById('base-dropdown');
+    const targetDropdown = document.getElementById('target-dropdown');
+    const trackRateButton = document.getElementById('track-rate');
 
-    const API = new FetchWrapper('https://v6.exchangerate-api.com/v6/ec08bfe392aaa50ccb5e87f9/')
+    const api = new FetchWrapper('https://v6.exchangerate-api.com/v6/ec08bfe392aaa50ccb5e87f9/');
+    let allCurrencies = [];
+    let displayedBaseCurrencies = [];
+    let displayedTargetCurrencies = [];
 
-    API.get('codes').then(data => {
-        if(data.result === 'success') {
-            const currencies = data.supported_codes;
-            currencies.forEach(currency => {
-                const baseButton = document.createElement('button');
-                baseButton.textContent = currency[0];
-                baseButton.addEventListener('click', () => selectCurrency(baseButton, 'base'));
-                baseCurrencyContainer.appendChild(baseButton);
-
-                const targetButton = document.createElement('button');
-                targetButton.textContent = currency[0];
-                targetButton.addEventListener('click', () => selectCurrency(targetButton, 'target'));
-                targetCurrencyContainer.appendChild(targetButton);
-            });
+    api.get('codes').then(data => {
+        if (data.result === 'success') {
+            allCurrencies = data.supported_codes;
+            const top10Currencies = ['USD', 'EUR', 'JPY', 'GBP', 'CNY', 'AUD', 'CAD', 'CHF', 'HKD', 'SGD'];
+            displayedBaseCurrencies = allCurrencies.filter(currency => top10Currencies.includes(currency[0]));
+            displayedTargetCurrencies = [...displayedBaseCurrencies];
+            renderCurrencies();
         } else {
             console.error('Error fetching currency codes:', data);
         }
     });
 
+    function getCurrencyEmoji(currencyCode) {
+        return currencyData[currencyCode] || '';
+    }
+
+    function renderCurrencies() {
+        baseCurrencyContainer.innerHTML = '';
+        targetCurrencyContainer.innerHTML = '';
+        baseDropdown.innerHTML = '';
+        targetDropdown.innerHTML = '';
+
+        displayedBaseCurrencies.forEach(currency => {
+            const baseButton = document.createElement('button');
+            baseButton.innerHTML = `${getCurrencyEmoji(currency[0])} ${currency[0]} - ${currency[1]}`;
+            baseButton.addEventListener('click', () => selectCurrency(baseButton, 'base'));
+            baseCurrencyContainer.appendChild(baseButton);
+        });
+
+        displayedTargetCurrencies.forEach(currency => {
+            const targetButton = document.createElement('button');
+            targetButton.innerHTML = `${getCurrencyEmoji(currency[0])} ${currency[0]} - ${currency[1]}`;
+            targetButton.addEventListener('click', () => selectCurrency(targetButton, 'target'));
+            targetCurrencyContainer.appendChild(targetButton);
+        });
+
+        const otherBaseCurrencies = allCurrencies.filter(currency => !displayedBaseCurrencies.some(displayed => displayed[0] === currency[0]));
+        otherBaseCurrencies.forEach(currency => {
+            const baseButton = document.createElement('button');
+            baseButton.innerHTML = `${getCurrencyEmoji(currency[0])} ${currency[0]} - ${currency[1]}`;
+            baseButton.addEventListener('click', () => {
+                selectCurrency(baseButton, 'base');
+                baseDropdownButton.textContent = `${getCurrencyEmoji(currency[0])} ${currency[0]}`;
+            });
+            baseDropdown.appendChild(baseButton);
+        });
+
+        const otherTargetCurrencies = allCurrencies.filter(currency => !displayedTargetCurrencies.some(displayed => displayed[0] === currency[0]));
+        otherTargetCurrencies.forEach(currency => {
+            const targetButton = document.createElement('button');
+            targetButton.innerHTML = `${getCurrencyEmoji(currency[0])} ${currency[0]} - ${currency[1]}`;
+            targetButton.addEventListener('click', () => {
+                selectCurrency(targetButton, 'target');
+                targetDropdownButton.textContent = `${getCurrencyEmoji(currency[0])} ${currency[0]}`;
+            });
+            targetDropdown.appendChild(targetButton);
+        });
+    }
 
     let selectedBaseCurrency = null;
     let selectedTargetCurrency = null;
@@ -35,9 +82,9 @@ document.addEventListener("DOMContentLoaded", function() {
         buttons.forEach(btn => btn.classList.remove('selected'));
         button.classList.add('selected');
         if (type === 'base') {
-            selectedBaseCurrency = button.textContent;
+            selectedBaseCurrency = button.textContent.split(' ')[1];
         } else {
-            selectedTargetCurrency = button.textContent;
+            selectedTargetCurrency = button.textContent.split(' ')[1];
         }
         updateTrackRateButton();
     }
