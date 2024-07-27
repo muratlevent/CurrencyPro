@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CurrencyPro Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <nav>
+        <a href="#" class="logo">CurrencyPro</a>
+        <ul>
+            <li><a href="#">Currency Converter</a></li>
+            <li><a href="#">Features</a></li>
+            <li><a href="#">Resources</a></li>
+            <li><a href="#" class="login">Log in</a></li>
+            <li><a href="#" class="learn-more">Learn More</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <section class="converter">
+        <h1>CurrencyPro Converter</h1>
+        <p>Check live foreign currency exchange rates</p>
+        <label for="amount">Enter Amount</label>
+        <input type="number" id="amount" value="1.00" step="0.01">
+        <div class="currency-selection">
+            <div class="currency-option" id="base-currency">
+                <button id="base-currency-button">🇪🇺 EUR - Euro</button>
+            </div>
+            <button id="swap-currencies">⇄</button>
+            <div class="currency-option" id="target-currency">
+                <button id="target-currency-button">🇺🇸 USD - US Dollar</button>
+            </div>
+        </div>
+        <div class="exchange-rate">
+            <p>1.00 US Dollar =</p>
+            <p class="rate">0.94614358 Euros</p>
+        </div>
+        <p><a href="#">Euro</a> to <a href="#">US Dollar</a> conversion — Last updated 5 minutes ago <button id="refresh-rate">Refresh</button></p>
+    </section>
+</main>
+<footer>
+    <div class="footer-content">
+        <div class="footer-left">
+            <p>&copy; 2022, All Rights Reserved.</p>
+            <ul>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+            </ul>
+        </div>
+        <div class="footer-right">
+            <ul>
+                <li><a href="#">How It Works</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Compliances</a></li>
+                <li><a href="#">Payments</a></li>
+                <li><a href="#">Taxes</a></li>
+                <li><a href="#">Enterprises</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+<script src="main.js"></script>
+</body>
+</html>
