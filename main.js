@@ -93,6 +93,9 @@ document.addEventListener("DOMContentLoaded", function() {
         if (selectedBaseCurrency && selectedTargetCurrency) {
             trackRateButton.classList.add('enabled');
             trackRateButton.disabled = false;
+            trackRateButton.addEventListener('click', function() {
+                window.location.href = `results.html?base=${selectedBaseCurrency}&target=${selectedTargetCurrency}`;
+            });
         } else {
             trackRateButton.classList.remove('enabled');
             trackRateButton.disabled = true;
