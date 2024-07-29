@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const targetDropdownButton = document.getElementById('show-more-target');
     const baseDropdown = document.getElementById('base-dropdown');
     const targetDropdown = document.getElementById('target-dropdown');
-    const trackRateButton = document.getElementById('track-rate');
+    const trackRateLink = document.getElementById('track-rate');
 
     const api = new FetchWrapper('https://v6.exchangerate-api.com/v6/ec08bfe392aaa50ccb5e87f9/');
     let allCurrencies = [];
@@ -86,19 +86,18 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             selectedTargetCurrency = button.textContent.split(' ')[1];
         }
-        updateTrackRateButton();
+        updateTrackRateLink();
     }
 
-    function updateTrackRateButton() {
+    function updateTrackRateLink() {
         if (selectedBaseCurrency && selectedTargetCurrency) {
-            trackRateButton.classList.add('enabled');
-            trackRateButton.disabled = false;
-            trackRateButton.addEventListener('click', function() {
-                window.location.href = `results.html?base=${selectedBaseCurrency}&target=${selectedTargetCurrency}`;
-            });
+            trackRateLink.classList.add('enabled');
+            trackRateLink.classList.remove('disabled');
+            trackRateLink.setAttribute('href', `results.html?base=${selectedBaseCurrency}&target=${selectedTargetCurrency}`);
         } else {
-            trackRateButton.classList.remove('enabled');
-            trackRateButton.disabled = true;
+            trackRateLink.classList.remove('enabled');
+            trackRateLink.classList.add('disabled');
+            trackRateLink.setAttribute('href', '#');
         }
     }
 });
