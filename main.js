@@ -1,7 +1,7 @@
 import FetchWrapper from './fetch-wrapper.js';
 import currencyData from './currency-data.json';
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const baseCurrencyContainer = document.getElementById('base-currency');
     const targetCurrencyContainer = document.getElementById('target-currency');
     const baseDropdownButton = document.getElementById('show-more-base');
