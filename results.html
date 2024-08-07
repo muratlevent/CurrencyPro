@@ -23,22 +23,13 @@
     <section class="converter">
         <h1>CurrencyPro Converter</h1>
         <p>Check live foreign currency exchange rates</p>
-        <label for="amount">Enter Amount</label>
-        <input type="number" id="amount" value="1.00" step="0.01">
-        <div class="currency-selection">
-            <div class="currency-option" id="base-currency">
-                <button id="base-currency-button">🇪🇺 EUR - Euro</button>
+        <form id="conversion-form">
+            <label for="amount">Enter Amount</label>
+            <input type="number" id="amount" name="amount" value="1.00" step="0.01" min="0">
+            <div id="conversion-result">
+
             </div>
-            <button id="swap-currencies">⇄</button>
-            <div class="currency-option" id="target-currency">
-                <button id="target-currency-button">🇺🇸 USD - US Dollar</button>
-            </div>
-        </div>
-        <div class="exchange-rate">
-            <p>1.00 US Dollar =</p>
-            <p class="rate">0.94614358 Euros</p>
-        </div>
-        <p><a href="#">Euro</a> to <a href="#">US Dollar</a> conversion — Last updated 5 minutes ago <button id="refresh-rate">Refresh</button></p>
+        </form>
     </section>
 </main>
 <footer>
@@ -63,6 +54,6 @@
         </div>
     </div>
 </footer>
-<script src="main.js"></script>
+<script type="module" src="results.js"></script>
 </body>
 </html>
