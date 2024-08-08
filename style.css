@@ -2,6 +2,8 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f8f8f8;
+    color: #333;
 }
 
 header {
@@ -50,9 +52,97 @@ nav ul li a.learn-more {
     border-radius: 5px;
 }
 
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    background-color: #f0f2f5;
+    padding: 20px;
+}
+
 .hero {
     text-align: center;
     padding: 50px 20px;
+}
+
+.converter {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+}
+
+.converter h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #007BFF;
+}
+
+.converter p {
+    margin-bottom: 40px;
+    font-size: 16px;
+    color: #666;
+}
+
+#conversion-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#amount {
+    padding: 10px;
+    font-size: 18px;
+    width: 100px;
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.currency-pair {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.currency-pair span {
+    padding: 10px 20px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.swap {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+#conversion-result {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #007BFF;
+}
+
+#refresh {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#refresh:hover {
+    background-color: #0056b3;
 }
 
 .currency-selection {
