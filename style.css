@@ -193,6 +193,9 @@ label[for="amount"] {
     background-color: #f8f8f8;
     cursor: pointer;
     font-size: 13px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
 }
 
 .currency-options button.selected {

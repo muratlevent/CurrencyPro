@@ -34,19 +34,24 @@ document.addEventListener("DOMContentLoaded", function () {
     function renderCurrencies() {
         baseCurrencyContainer.innerHTML = '';
         targetCurrencyContainer.innerHTML = '';
-        baseDropdown.innerHTML = '';
-        targetDropdown.innerHTML = '';
+        baseDropdown.innerHTML = '<input type="text" id="base-search" placeholder="Search currency...">';
+        targetDropdown.innerHTML = '<input type="text" id="target-search" placeholder="Search currency...">';
+
+        const baseSearch = document.getElementById('base-search');
+        const targetSearch = document.getElementById('target-search');
+        baseSearch.addEventListener('input', () => filterCurrencies(baseSearch.value, baseDropdown));
+        targetSearch.addEventListener('input', () => filterCurrencies(targetSearch.value, targetDropdown));
 
         displayedBaseCurrencies.forEach(currency => {
             const baseButton = document.createElement('button');
-            baseButton.innerHTML = `${getCurrencyEmoji(currency[0])} ${currency[0]} - ${currency[1]}`;
+            baseButton.innerHTML = `<div>${getCurrencyEmoji(currency[0])} ${currency[0]}</div><div>${currency[1]}</div>`;
             baseButton.addEventListener('click', () => selectCurrency(baseButton, 'base'));
             baseCurrencyContainer.appendChild(baseButton);
         });
 
         displayedTargetCurrencies.forEach(currency => {
             const targetButton = document.createElement('button');
-            targetButton.innerHTML = `${getCurrencyEmoji(currency[0])} ${currency[0]} - ${currency[1]}`;
+            targetButton.innerHTML = `<div>${getCurrencyEmoji(currency[0])} ${currency[0]}</div><div>${currency[1]}</div>`;
             targetButton.addEventListener('click', () => selectCurrency(targetButton, 'target'));
             targetCurrencyContainer.appendChild(targetButton);
         });
@@ -54,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const otherBaseCurrencies = allCurrencies.filter(currency => !displayedBaseCurrencies.some(displayed => displayed[0] === currency[0]));
         otherBaseCurrencies.forEach(currency => {
             const baseButton = document.createElement('button');
-            baseButton.innerHTML = `${getCurrencyEmoji(currency[0])} ${currency[0]} - ${currency[1]}`;
+            baseButton.innerHTML = `<div>${getCurrencyEmoji(currency[0])} ${currency[0]}</div><div>${currency[1]}</div>`;
             baseButton.addEventListener('click', () => {
                 selectCurrency(baseButton, 'base');
                 baseDropdownButton.textContent = `${getCurrencyEmoji(currency[0])} ${currency[0]}`;
@@ -65,12 +70,23 @@ document.addEventListener("DOMContentLoaded", function () {
         const otherTargetCurrencies = allCurrencies.filter(currency => !displayedTargetCurrencies.some(displayed => displayed[0] === currency[0]));
         otherTargetCurrencies.forEach(currency => {
             const targetButton = document.createElement('button');
-            targetButton.innerHTML = `${getCurrencyEmoji(currency[0])} ${currency[0]} - ${currency[1]}`;
+            targetButton.innerHTML = `<div>${getCurrencyEmoji(currency[0])} ${currency[0]}</div><div>${currency[1]}</div>`;
             targetButton.addEventListener('click', () => {
                 selectCurrency(targetButton, 'target');
                 targetDropdownButton.textContent = `${getCurrencyEmoji(currency[0])} ${currency[0]}`;
             });
             targetDropdown.appendChild(targetButton);
+        });
+    }
+
+    function filterCurrencies(searchTerm, dropdown) {
+        const buttons = dropdown.querySelectorAll('button');
+        buttons.forEach(button => {
+            if (button.textContent.toLowerCase().includes(searchTerm.toLowerCase())) {
+                button.style.display = '';
+            } else {
+                button.style.display = 'none';
+            }
         });
     }
 
