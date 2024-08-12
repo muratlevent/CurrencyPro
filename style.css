@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: Inter, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f8f8f8;
@@ -176,20 +176,24 @@ label[for="amount"] {
 }
 
 .currency-selection h2 {
+    text-align: left;
     margin-bottom: 10px;
+    font-weight: normal;
 }
 
 .currency-options {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .currency-options button {
+    width: 140px;
+    height: 55px;
     padding: 10px 20px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 15px;
     background-color: #f8f8f8;
     cursor: pointer;
     font-size: 13px;
@@ -201,6 +205,10 @@ label[for="amount"] {
 .currency-options button.selected {
     border-color: #355FE5;
     background-color: #e7f3ff;
+}
+
+.currency-name {
+    font-size: 11px;
 }
 
 #track-rate {
@@ -215,6 +223,7 @@ label[for="amount"] {
     opacity: 0.5;
     font-size: 13px;
     display: inline-block;
+    text-decoration: none;
 }
 
 #track-rate.enabled {
@@ -222,26 +231,8 @@ label[for="amount"] {
     cursor: pointer;
 }
 
-.track-link {
-    margin-top: 20px;
-    padding: 10px 20px;
+#track-rate.disabled {
     background-color: #355FE5;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-    cursor: not-allowed;
-    opacity: 0.5;
-    font-size: 13px;
-    display: inline-block;
-}
-
-.track-link.enabled {
-    opacity: 1;
-    cursor: pointer;
-}
-
-.track-link.disabled {
-    background-color: #ccc;
     cursor: not-allowed;
     pointer-events: none;
 }

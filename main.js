@@ -44,14 +44,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         displayedBaseCurrencies.forEach(currency => {
             const baseButton = document.createElement('button');
-            baseButton.innerHTML = `<div>${getCurrencyEmoji(currency[0])} ${currency[0]}</div><div>${currency[1]}</div>`;
+            baseButton.innerHTML = `<div class="currency-code">${getCurrencyEmoji(currency[0])} ${currency[0]}</div><div class="currency-name">${currency[1]}</div>`;
             baseButton.addEventListener('click', () => selectCurrency(baseButton, 'base'));
             baseCurrencyContainer.appendChild(baseButton);
         });
 
         displayedTargetCurrencies.forEach(currency => {
             const targetButton = document.createElement('button');
-            targetButton.innerHTML = `<div>${getCurrencyEmoji(currency[0])} ${currency[0]}</div><div>${currency[1]}</div>`;
+            targetButton.innerHTML = `<div class="currency-code">${getCurrencyEmoji(currency[0])} ${currency[0]}</div><div class="currency-name">${currency[1]}</div>`;
             targetButton.addEventListener('click', () => selectCurrency(targetButton, 'target'));
             targetCurrencyContainer.appendChild(targetButton);
         });
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const otherBaseCurrencies = allCurrencies.filter(currency => !displayedBaseCurrencies.some(displayed => displayed[0] === currency[0]));
         otherBaseCurrencies.forEach(currency => {
             const baseButton = document.createElement('button');
-            baseButton.innerHTML = `<div>${getCurrencyEmoji(currency[0])} ${currency[0]}</div><div>${currency[1]}</div>`;
+            baseButton.innerHTML = `<div class="currency-code">${getCurrencyEmoji(currency[0])} ${currency[0]}</div><div class="currency-name">${currency[1]}</div>`;
             baseButton.addEventListener('click', () => {
                 selectCurrency(baseButton, 'base');
                 baseDropdownButton.textContent = `${getCurrencyEmoji(currency[0])} ${currency[0]}`;
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const otherTargetCurrencies = allCurrencies.filter(currency => !displayedTargetCurrencies.some(displayed => displayed[0] === currency[0]));
         otherTargetCurrencies.forEach(currency => {
             const targetButton = document.createElement('button');
-            targetButton.innerHTML = `<div>${getCurrencyEmoji(currency[0])} ${currency[0]}</div><div>${currency[1]}</div>`;
+            targetButton.innerHTML = `<div class="currency-code">${getCurrencyEmoji(currency[0])} ${currency[0]}</div><div class="currency-name">${currency[1]}</div>`;
             targetButton.addEventListener('click', () => {
                 selectCurrency(targetButton, 'target');
                 targetDropdownButton.textContent = `${getCurrencyEmoji(currency[0])} ${currency[0]}`;
@@ -98,9 +98,9 @@ document.addEventListener("DOMContentLoaded", function () {
         buttons.forEach(btn => btn.classList.remove('selected'));
         button.classList.add('selected');
         if (type === 'base') {
-            selectedBaseCurrency = button.textContent.split(' ')[1];
+            selectedBaseCurrency = button.querySelector('.currency-code').textContent.split(' ')[1].trim();
         } else {
-            selectedTargetCurrency = button.textContent.split(' ')[1];
+            selectedTargetCurrency = button.querySelector('.currency-code').textContent.split(' ')[1].trim();
         }
         updateTrackRateLink();
     }
