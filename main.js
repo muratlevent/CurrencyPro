@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
             baseButton.innerHTML = `<div class="currency-code">${getCurrencyEmoji(currency[0])} ${currency[0]}</div><div class="currency-name">${currency[1]}</div>`;
             baseButton.addEventListener('click', () => {
                 selectCurrency(baseButton, 'base');
-                baseDropdownButton.textContent = `${getCurrencyEmoji(currency[0])} ${currency[0]}`;
+                baseDropdownButton.innerHTML = `<div class="currency-code">${getCurrencyEmoji(currency[0])} ${currency[0]}</div><div class="currency-name">${currency[1]}</div>`;
             });
             baseDropdown.appendChild(baseButton);
         });
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
             targetButton.innerHTML = `<div class="currency-code">${getCurrencyEmoji(currency[0])} ${currency[0]}</div><div class="currency-name">${currency[1]}</div>`;
             targetButton.addEventListener('click', () => {
                 selectCurrency(targetButton, 'target');
-                targetDropdownButton.textContent = `${getCurrencyEmoji(currency[0])} ${currency[0]}`;
+                targetDropdownButton.innerHTML = `<div class="currency-code">${getCurrencyEmoji(currency[0])} ${currency[0]}</div><div class="currency-name">${currency[1]}</div>`;
             });
             targetDropdown.appendChild(targetButton);
         });

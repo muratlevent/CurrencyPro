@@ -8,8 +8,10 @@ document.addEventListener("DOMContentLoaded", function() {
     const conversionResult = document.getElementById('conversion-result');
     const baseCurrencySpan = document.getElementById('base-currency');
     const targetCurrencySpan = document.getElementById('target-currency');
+    const conversionTextSpan = document.getElementById('conversion-text');
     const refreshLink = document.getElementById('refresh');
     const swapButton = document.getElementById('swap');
+
 
     const allCurrencies = JSON.parse(localStorage.getItem('allCurrencies')) || [];
 
@@ -37,8 +39,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (data.result === 'success') {
                     const rate = data.conversion_rate;
                     const amount = parseFloat(amountInput.value);
-                    const result = (amount * rate).toFixed(2);
-                    conversionResult.innerHTML = `<p>${amount} ${baseCurrency} = ${result} ${targetCurrency}</p>`;
+                    const result = (amount * rate).toFixed(5);
+                    conversionResult.innerHTML = `<div class="base-result">${amount} ${baseCurrency} = </div><div class="target-result">${result} ${targetCurrency}`;
                 } else {
                     conversionResult.textContent = 'Error fetching exchange rate.';
                 }
@@ -49,16 +51,22 @@ document.addEventListener("DOMContentLoaded", function() {
             });
     }
 
+    function updateConversionText() {
+        conversionTextSpan.innerHTML = `${getCurrencyName(baseCurrency)} to ${getCurrencyName(targetCurrency)} conversion`;
+    }
+
     amountInput.addEventListener('input', fetchExchangeRate);
     refreshLink.addEventListener('click', function(event) {
         event.preventDefault();
         fetchExchangeRate();
     });
 
+    updateConversionText();
     swapButton.addEventListener('click', function() {
         [baseCurrency, targetCurrency] = [targetCurrency, baseCurrency];
         baseCurrencySpan.innerHTML = `${getCurrencyEmoji(baseCurrency)} ${baseCurrency} - ${getCurrencyName(baseCurrency)}`;
         targetCurrencySpan.innerHTML = `${getCurrencyEmoji(targetCurrency)} ${targetCurrency} - ${getCurrencyName(targetCurrency)}`;
+        updateConversionText();
         fetchExchangeRate();
     });
 
