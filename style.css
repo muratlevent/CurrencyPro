@@ -270,16 +270,6 @@ label[for="amount"] {
     background-color: #f1f1f1;
 }
 
-.dropdown-button {
-    background-color: #355FE5;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 13px;
-}
-
 .dropdown-button:hover {
     background-color: #0056b3;
 }

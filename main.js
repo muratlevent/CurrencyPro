@@ -18,6 +18,9 @@ document.addEventListener("DOMContentLoaded", function () {
     api.get('codes').then(data => {
         if (data.result === 'success') {
             allCurrencies = data.supported_codes;
+
+            localStorage.setItem('allCurrencies', JSON.stringify(allCurrencies));
+
             const top10Currencies = ['USD', 'EUR', 'JPY', 'GBP', 'CNY', 'AUD', 'CAD', 'CHF', 'HKD', 'SGD'];
             displayedBaseCurrencies = allCurrencies.filter(currency => top10Currencies.includes(currency[0]));
             displayedTargetCurrencies = [...displayedBaseCurrencies];

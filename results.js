@@ -1,3 +1,5 @@
+import currencyData from './currency-data.json';
+
 document.addEventListener("DOMContentLoaded", function() {
     const params = new URLSearchParams(window.location.search);
     let baseCurrency = params.get('base');
@@ -9,13 +11,24 @@ document.addEventListener("DOMContentLoaded", function() {
     const refreshLink = document.getElementById('refresh');
     const swapButton = document.getElementById('swap');
 
+    const allCurrencies = JSON.parse(localStorage.getItem('allCurrencies')) || [];
+
     if (!baseCurrency || !targetCurrency) {
         conversionResult.textContent = 'Please select both base and target currencies.';
         return;
     }
 
-    baseCurrencySpan.textContent = `${baseCurrency}`;
-    targetCurrencySpan.textContent = `${targetCurrency}`;
+    function getCurrencyEmoji(currencyCode) {
+        return currencyData[currencyCode] || '';
+    }
+
+    function getCurrencyName(currencyCode) {
+        const currency = allCurrencies.find(currency => currency[0] === currencyCode);
+        return currency ? currency[1] : '';
+    }
+
+    baseCurrencySpan.innerHTML = `${getCurrencyEmoji(baseCurrency)} ${baseCurrency} - ${getCurrencyName(baseCurrency)}`;
+    targetCurrencySpan.innerHTML = `${getCurrencyEmoji(targetCurrency)} ${targetCurrency} - ${getCurrencyName(targetCurrency)}`;
 
     function fetchExchangeRate() {
         fetch(`https://v6.exchangerate-api.com/v6/ec08bfe392aaa50ccb5e87f9/pair/${baseCurrency}/${targetCurrency}`)
@@ -44,8 +57,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     swapButton.addEventListener('click', function() {
         [baseCurrency, targetCurrency] = [targetCurrency, baseCurrency];
-        baseCurrencySpan.textContent = `${baseCurrency}`;
-        targetCurrencySpan.textContent = `${targetCurrency}`;
+        baseCurrencySpan.innerHTML = `${getCurrencyEmoji(baseCurrency)} ${baseCurrency} - ${getCurrencyName(baseCurrency)}`;
+        targetCurrencySpan.innerHTML = `${getCurrencyEmoji(targetCurrency)} ${targetCurrency} - ${getCurrencyName(targetCurrency)}`;
         fetchExchangeRate();
     });
 
