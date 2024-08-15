@@ -12,6 +12,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const refreshLink = document.getElementById('refresh');
     const swapButton = document.getElementById('swap');
 
+    let lastFetchTime = new Date();
+    let timer;
 
     const allCurrencies = JSON.parse(localStorage.getItem('allCurrencies')) || [];
 
@@ -48,6 +50,14 @@ document.addEventListener("DOMContentLoaded", function() {
                         <div class="target-result">
                             ${integerPart},${firstTwoDecimals}<span class="fractional-part">${remainingDecimals}</span> ${targetCurrency}
                         </div>`;
+
+                    // Fetch successful, save the timestamp
+                    lastFetchTime = new Date();
+                    updateConversionText();
+
+                    // Clear previous timer and start a new one
+                    clearInterval(timer);
+                    startTimer();
                 } else {
                     conversionResult.textContent = 'Error fetching exchange rate.';
                 }
@@ -59,7 +69,22 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function updateConversionText() {
-        conversionTextSpan.innerHTML = `${getCurrencyName(baseCurrency)} to ${getCurrencyName(targetCurrency)} conversion`;
+        const now = new Date();
+        const timeDiff = now - lastFetchTime; // Time difference in milliseconds
+        const minutesAgo = Math.floor(timeDiff / 60000); // Convert milliseconds to minutes
+        const secondsAgo = Math.floor((timeDiff % 60000) / 1000); // Get remaining seconds
+
+        if (minutesAgo === 0) {
+            conversionTextSpan.innerHTML = `${getCurrencyName(baseCurrency)} to ${getCurrencyName(targetCurrency)} conversion — Last updated ${secondsAgo} seconds ago`;
+        } else {
+            conversionTextSpan.innerHTML = `${getCurrencyName(baseCurrency)} to ${getCurrencyName(targetCurrency)} conversion — Last updated ${minutesAgo} minutes ago`;
+        }
+    }
+
+    function startTimer() {
+        timer = setInterval(() => {
+            updateConversionText();
+        }, 60000);
     }
 
     amountInput.addEventListener('input', fetchExchangeRate);
@@ -68,12 +93,10 @@ document.addEventListener("DOMContentLoaded", function() {
         fetchExchangeRate();
     });
 
-    updateConversionText();
     swapButton.addEventListener('click', function() {
         [baseCurrency, targetCurrency] = [targetCurrency, baseCurrency];
         baseCurrencySpan.innerHTML = `${getCurrencyEmoji(baseCurrency)} ${baseCurrency} - ${getCurrencyName(baseCurrency)}`;
         targetCurrencySpan.innerHTML = `${getCurrencyEmoji(targetCurrency)} ${targetCurrency} - ${getCurrencyName(targetCurrency)}`;
-        updateConversionText();
         fetchExchangeRate();
     });
 
