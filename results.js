@@ -40,7 +40,14 @@ document.addEventListener("DOMContentLoaded", function() {
                     const rate = data.conversion_rate;
                     const amount = parseFloat(amountInput.value);
                     const result = (amount * rate).toFixed(5);
-                    conversionResult.innerHTML = `<div class="base-result">${amount} ${baseCurrency} = </div><div class="target-result">${result} ${targetCurrency}`;
+                    const [integerPart, decimalPart] = result.split('.');
+                    const firstTwoDecimals = decimalPart.slice(0, 2);
+                    const remainingDecimals = decimalPart.slice(2);
+                    conversionResult.innerHTML = `
+                        <div class="base-result">${amount} ${baseCurrency} = </div>
+                        <div class="target-result">
+                            ${integerPart},${firstTwoDecimals}<span class="fractional-part">${remainingDecimals}</span> ${targetCurrency}
+                        </div>`;
                 } else {
                     conversionResult.textContent = 'Error fetching exchange rate.';
                 }

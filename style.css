@@ -56,7 +56,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 80vh;
+    min-height: 70vh;
     background-color: #f0f2f5;
     padding: 20px;
 }
@@ -67,13 +67,13 @@ main {
 }
 
 .converter {
-    background-color: #fff;
+    background-color: #f0f2f5;
     padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-    width: 100%;
     text-align: center;
+    transform: scale(1.2);
+    transform-origin: center;
+    max-width: 90%;
+    width: 100%;
 }
 
 .converter h1 {
@@ -117,6 +117,7 @@ label[for="amount"] {
     color: #355FE5;
     -moz-appearance: textfield;
     outline: none;
+    background-color: #f0f2f5;
 }
 
 #amount::-webkit-inner-spin-button,
@@ -126,10 +127,8 @@ label[for="amount"] {
 }
 
 #swap {
-    min-height: 25px;
-    min-width: 25px;
-    max-width: 25px;
-    max-height: 25px;
+    height: 10px;
+    width: 10px;
     cursor: pointer;
     border-radius: 100px;
     align-items: center;
@@ -150,29 +149,38 @@ label[for="amount"] {
     width: 150px;
     height: 30px;
     padding: 10px 20px;
-    background-color: #f1f1f1;
+    background-color: #fff;
     border-radius: 100px;
     font-size: 12px;
     color: #333;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #conversion-result {
-    margin-top: 20px;
-    font-weight: bold;
+    margin-top: 30px;
     color: #355FE5;
 }
 
 .base-result {
     color: #666;
-    font-size: 12px;
+    font-size: 14px;
+    font-weight: lighter;
 }
 
 .target-result {
-    color: #666;
+    font-size: 24px;
+    margin-top: 8px;
+    color: #1F2C37;
+    font-weight: bold;
 }
+
+.fractional-part {
+    color: #D1D8DD;
+}
+
 #conversion-text {
     margin-top: 20px;
     font-size: 12px;
@@ -184,7 +192,6 @@ label[for="amount"] {
     margin-left: 2px;
     font-size: 11px;
     padding: 6px 14px;
-    background-color: #fff;
     color: #355FE5;
     text-decoration: none;
     border-radius: 100px;
