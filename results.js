@@ -35,12 +35,18 @@ document.addEventListener("DOMContentLoaded", function() {
     targetCurrencySpan.innerHTML = `${getCurrencyEmoji(targetCurrency)} ${targetCurrency} - ${getCurrencyName(targetCurrency)}`;
 
     function fetchExchangeRate() {
+        const amount = parseFloat(amountInput.value);
+
+        if (isNaN(amount) || amount <= 0) {
+            conversionResult.textContent = `⚠️ Please enter a valid amount to convert.`;
+            return;
+        }
+
         fetch(`https://v6.exchangerate-api.com/v6/ec08bfe392aaa50ccb5e87f9/pair/${baseCurrency}/${targetCurrency}`)
             .then(response => response.json())
             .then(data => {
                 if (data.result === 'success') {
                     const rate = data.conversion_rate;
-                    const amount = parseFloat(amountInput.value);
                     const result = (amount * rate).toFixed(5);
                     const [integerPart, decimalPart] = result.split('.');
                     const firstTwoDecimals = decimalPart.slice(0, 2);
@@ -51,11 +57,9 @@ document.addEventListener("DOMContentLoaded", function() {
                             ${integerPart},${firstTwoDecimals}<span class="fractional-part">${remainingDecimals}</span> ${targetCurrency}
                         </div>`;
 
-                    // Fetch successful, save the timestamp
                     lastFetchTime = new Date();
                     updateConversionText();
 
-                    // Clear previous timer and start a new one
                     clearInterval(timer);
                     startTimer();
                 } else {
@@ -70,9 +74,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function updateConversionText() {
         const now = new Date();
-        const timeDiff = now - lastFetchTime; // Time difference in milliseconds
-        const minutesAgo = Math.floor(timeDiff / 60000); // Convert milliseconds to minutes
-        const secondsAgo = Math.floor((timeDiff % 60000) / 1000); // Get remaining seconds
+        const timeDiff = now - lastFetchTime;
+        const minutesAgo = Math.floor(timeDiff / 60000);
+        const secondsAgo = Math.floor((timeDiff % 60000) / 1000);
 
         if (minutesAgo === 0) {
             conversionTextSpan.innerHTML = `${getCurrencyName(baseCurrency)} to ${getCurrencyName(targetCurrency)} conversion — Last updated ${secondsAgo} seconds ago`;
