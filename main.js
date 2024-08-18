@@ -97,13 +97,36 @@ document.addEventListener("DOMContentLoaded", function () {
     let selectedTargetCurrency = null;
 
     function selectCurrency(button, type) {
-        const buttons = type === 'base' ? baseCurrencyContainer.querySelectorAll('button') : targetCurrencyContainer.querySelectorAll('button');
+        const buttons = type === 'base'
+            ? [...baseCurrencyContainer.querySelectorAll('button'), ...baseDropdown.querySelectorAll('button')]
+            : [...targetCurrencyContainer.querySelectorAll('button'), ...targetDropdown.querySelectorAll('button')];
+
         buttons.forEach(btn => btn.classList.remove('selected'));
         button.classList.add('selected');
+
         if (type === 'base') {
             selectedBaseCurrency = button.querySelector('.currency-code').textContent.split(' ')[1].trim();
+
+            if (baseDropdown.contains(button)) {
+                baseDropdownButton.innerHTML = button.innerHTML;
+                baseDropdownButton.classList.add('selected');
+            } else {
+                baseDropdownButton.innerHTML = 'Other <span class="dropdown-icon">&#9662;</span>';
+                baseDropdownButton.classList.remove('selected');
+
+            }
         } else {
             selectedTargetCurrency = button.querySelector('.currency-code').textContent.split(' ')[1].trim();
+
+            if (targetDropdown.contains(button)) {
+                targetDropdownButton.innerHTML = button.innerHTML;
+                targetDropdownButton.classList.add('selected');
+
+            } else {
+                targetDropdownButton.innerHTML = 'Other <span class="dropdown-icon">&#9662;</span>';
+                targetDropdownButton.classList.remove('selected');
+
+            }
         }
         updateTrackRateLink();
     }
