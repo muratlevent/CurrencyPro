@@ -282,25 +282,35 @@ label[for="amount"] {
 #track-rate {
     float: right;
     margin-top: 20px;
-    padding: 10px 20px;
+    padding: 15px 30px;
     border: none;
     background-color: #355FE5;
     color: #fff;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    opacity: 0.5;
-    font-size: 13px;
-    display: inline-block;
+    opacity: 0.9;
+    font-size: 16px;
+    font-weight: bold;
     text-decoration: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
 }
 
 #track-rate.enabled {
     opacity: 1;
     cursor: pointer;
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+#track-rate:hover {
+    background-color: #355FE5;
+    transform: scale(1.15);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
 #track-rate.disabled {
-    background-color: #355FE5;
+    background: #a9a9a9;
     cursor: not-allowed;
     pointer-events: none;
 }
