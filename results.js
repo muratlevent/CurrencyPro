@@ -63,12 +63,12 @@ document.addEventListener("DOMContentLoaded", function() {
                     clearInterval(timer);
                     startTimer();
                 } else {
-                    conversionResult.textContent = 'Error fetching exchange rate.';
+                    conversionResult.textContent = '⚠️ We’re having trouble fetching the exchange rate. Please try refreshing the page or check back later.';
                 }
             })
             .catch(error => {
                 console.error('Error fetching exchange rate:', error);
-                conversionResult.textContent = 'Error fetching exchange rate.';
+                conversionResult.textContent = '⚠️ We’re having trouble fetching the exchange rate. Please try refreshing the page or check back later.';
             });
     }
 
