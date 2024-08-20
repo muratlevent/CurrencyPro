@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const targetDropdown = document.getElementById('target-dropdown');
     const trackRateLink = document.getElementById('track-rate');
 
-    const api = new FetchWrapper('https://v6.exchangerate-api.com/v6/ec08bfe392aaa50ccb5e87f9/');
+    const api = new FetchWrapper('https://v6.exchangerate-api.com/v6/e116b73c501dc69a9bd439de/');
     let allCurrencies = [];
     let displayedBaseCurrencies = [];
     let displayedTargetCurrencies = [];

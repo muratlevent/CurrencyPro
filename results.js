@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        fetch(`https://v6.exchangerate-api.com/v6/ec08bfe392aaa50ccb5e87f9/pair/${baseCurrency}/${targetCurrency}`)
+        fetch(`https://v6.exchangerate-api.com/v6/e116b73c501dc69a9bd439de/pair/${baseCurrency}/${targetCurrency}`)
             .then(response => response.json())
             .then(data => {
                 if (data.result === 'success') {
