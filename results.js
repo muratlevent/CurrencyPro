@@ -42,32 +42,40 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        fetch(`https://v6.exchangerate-api.com/v6/e116b73c501dc69a9bd439de/pair/${baseCurrency}/${targetCurrency}`)
+        fetch('./config.json')
             .then(response => response.json())
-            .then(data => {
-                if (data.result === 'success') {
-                    const rate = data.conversion_rate;
-                    const result = (amount * rate).toFixed(5);
-                    const [integerPart, decimalPart] = result.split('.');
-                    const firstTwoDecimals = decimalPart.slice(0, 2);
-                    const remainingDecimals = decimalPart.slice(2);
-                    conversionResult.innerHTML = `
-                        <div class="base-result">${amount} ${baseCurrency} = </div>
-                        <div class="target-result">
-                            ${integerPart},${firstTwoDecimals}<span class="fractional-part">${remainingDecimals}</span> ${targetCurrency}
-                        </div>`;
+            .then(config => {
+                fetch(`https://v6.exchangerate-api.com/v6/${config.apiKey}/pair/${baseCurrency}/${targetCurrency}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.result === 'success') {
+                            const rate = data.conversion_rate;
+                            const result = (amount * rate).toFixed(5);
+                            const [integerPart, decimalPart] = result.split('.');
+                            const firstTwoDecimals = decimalPart.slice(0, 2);
+                            const remainingDecimals = decimalPart.slice(2);
+                            conversionResult.innerHTML = `
+                                <div class="base-result">${amount} ${baseCurrency} = </div>
+                                <div class="target-result">
+                                    ${integerPart},${firstTwoDecimals}<span class="fractional-part">${remainingDecimals}</span> ${targetCurrency}
+                                </div>`;
 
-                    lastFetchTime = new Date();
-                    updateConversionText();
+                            lastFetchTime = new Date();
+                            updateConversionText();
 
-                    clearInterval(timer);
-                    startTimer();
-                } else {
-                    conversionResult.textContent = '⚠️ We’re having trouble fetching the exchange rate. Please try refreshing the page or check back later.';
-                }
+                            clearInterval(timer);
+                            startTimer();
+                        } else {
+                            conversionResult.textContent = '⚠️ We’re having trouble fetching the exchange rate. Please try refreshing the page or check back later.';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching exchange rate:', error);
+                        conversionResult.textContent = '⚠️ We’re having trouble fetching the exchange rate. Please try refreshing the page or check back later.';
+                    });
             })
             .catch(error => {
-                console.error('Error fetching exchange rate:', error);
+                console.error('Error loading config:', error);
                 conversionResult.textContent = '⚠️ We’re having trouble fetching the exchange rate. Please try refreshing the page or check back later.';
             });
     }
