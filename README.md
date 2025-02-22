@@ -10,7 +10,6 @@ CurrencyPro is a powerful and easy-to-use currency conversion web application th
 - [API Key Configuration](#api-key-configuration)
 - [Running the Application](#running-the-application)
 - [How to Use](#how-to-use)
-- [Project Background](#project-background)
 - [License](#license)
 
 ## Installation
