@@ -122,9 +122,6 @@ CurrencyPro is designed for ease of use. Follow the steps below to use the appli
       \
       ![WinCondition](media/swap.gif)
    
-## Project Background
-
-This project was built by following the project guide at the end of the [learnjavascript.online course](https://learnjavascript.online/projects/currency-pro.html). It serves as a practical application of JavaScript concepts, showcasing skills in API integration, event handling, and dynamic content rendering.
 
 ## License
 
